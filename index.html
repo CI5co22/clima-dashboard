@@ -31,18 +31,19 @@
                 <div class="info">
                     <div class="info-top">
                         <div class="info-lugar">
-                            <h1>— —</h1> <!-- placeholder para ciudad -->
-                            <span>— | —</span> <!-- placeholder para fecha y hora -->
+                            <h1>— —</h1> 
+                            <span>— | —</span> 
                         </div>
                         <div>
-                            <button class="btn addFav">⭐ <span class="addFav-text">Agregar a favoritos</span></button>
+                            <button class="btn addFav" id="addFavBtn">⭐ <span class="addFav-text" >Agregar a favoritos</span></button>
                         </div>
                     </div>
                     <div class="info-data">
-                        <span>⛅</span> 
+                        <span>⛅</span>
                         <div>
-                            <h1>--</h1>
-                            <h5>— —</h5> 
+                            <h1>--</h1> 
+                            <h5>— —</h5>
+                        </div>
                     </div>
                     <div class="info-detalles">
                         <div class="c-card">
@@ -67,18 +68,12 @@
             </div>
             <div class="content-favs card">
                 <h1>Ciudades favoritas</h1>
+                <template id="favTemplate">
                 <div class="fav">
-                    <span>Ciudad favorita</span>
-                    <button class="btn">X</button>
+                    <span class="fav-name"></span>
+                    <button class="btn removeFav">X</button>
                 </div>
-                 <div class="fav">
-                    <span>Ciudad favorita</span>
-                    <button class="btn">X</button>
-                </div>
-                 <div class="fav">
-                    <span>Ciudad favorita</span>
-                    <button class="btn">X</button>
-                </div>
+                </template>
             </div>
         </section>
         <section class="forecast card">

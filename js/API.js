@@ -3,6 +3,10 @@ const input = document.getElementById("city");
 const suggestions = document.getElementById("suggestions");
 const myLocationBtn = document.getElementById("myLocationBtn");
 const searchBtn = document.getElementById("searchBtn");
+const addFavBtn = document.getElementById("addFavBtn");
+
+const favsArray = [];
+
 
 var qCity = "";
 
@@ -91,7 +95,7 @@ function updateWeatherHTML(data) {
   document.querySelector(".info-lugar span").textContent = now.toLocaleString();
 
   document.querySelector(".info-data span").textContent = getWeatherEmoji(data.weather[0].main);
-  document.querySelector(".info-data h1").textContent = Math.round(data.main.temp);
+  document.querySelector(".info-data h1").textContent = `${Math.round(data.main.temp)}°`;
   document.querySelector(".info-data h5").textContent = data.weather[0].description;
 
   const cards = document.querySelectorAll(".info-detalles .c-card");
@@ -114,3 +118,17 @@ function getWeatherEmoji(main) {
     default: return "🌡️";
   }
 }
+
+
+addFavBtn.addEventListener("click", () =>
+{
+    var newFav = document.querySelector(".info-lugar h1").textContent
+    favsArray.push(newFav);
+    localStorage.setItem("favs", JSON.stringify(favsArray))
+
+    const favs = localStorage.getItem("favs");
+    console.log(favs);
+});
+
+
+
