@@ -85,6 +85,11 @@ main
     display: none;
 }
 
+.fav-name
+{
+    text-decoration: underline;
+}
+
 .addFav:hover
 {
     background-color: var(--secondary);
@@ -237,4 +242,10 @@ main
 
 #suggestions li:hover {
   background: #f0f0f0;
+}
+
+
+.addFavbtn:disabled
+{
+    background-color: red !important;
 }

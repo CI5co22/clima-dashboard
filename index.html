@@ -66,14 +66,16 @@
                 </div>
 
             </div>
-            <div class="content-favs card">
+            <div class="content-favs card" id="content-favs">
                 <h1>Ciudades favoritas</h1>
+                <div id="container-favs">
                 <template id="favTemplate">
-                <div class="fav">
-                    <span class="fav-name"></span>
-                    <button class="btn removeFav">X</button>
-                </div>
+                    <div class="fav mb-2">
+                        <span class="fav-name"></span>
+                        <button class="btn removeFav" id="removeFav">X</button>
+                    </div>
                 </template>
+                </div>
             </div>
         </section>
         <section class="forecast card">

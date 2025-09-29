@@ -5,10 +5,47 @@ const myLocationBtn = document.getElementById("myLocationBtn");
 const searchBtn = document.getElementById("searchBtn");
 const addFavBtn = document.getElementById("addFavBtn");
 
-const favsArray = [];
-
+const favsContainer = document.getElementById("container-favs");
+const favTemplate = document.getElementById("favTemplate");
 
 var qCity = "";
+
+const favsArray = JSON.parse(localStorage.getItem("favs"));
+
+function showFavs() {
+    favsContainer.innerHTML = ""; 
+    favsArray.forEach(cityName => {
+        const clone = favTemplate.content.cloneNode(true);
+        clone.querySelector(".fav-name").textContent = cityName;
+        favsContainer.appendChild(clone);
+
+    });
+}
+
+favsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("removeFav")) {
+        const favElement = e.target.closest(".fav");
+        const cityName = favElement.querySelector(".fav-name").textContent;
+        const indice = favsArray.indexOf(cityName);
+        
+        favsArray.splice(indice, 1);
+        localStorage.setItem("favs", JSON.stringify(favsArray));
+        
+        favElement.remove();
+    }
+
+    if (e.target.classList.contains("fav-name"))
+    {
+        const favElement = e.target.closest(".fav");
+        const cityName = favElement.querySelector(".fav-name").textContent;
+
+        getWeatherByCity(cityName);
+        getForeCast(cityName);
+
+    }
+});
+
+showFavs();
 
 
 input.addEventListener("input", () =>
@@ -80,6 +117,8 @@ function getWeatherByCity(qCity) {
       if (data.cod === 200) 
       {
         updateWeatherHTML(data);
+        addFavBtn.removeAttribute("disabled");
+
       } else {
         alert("Ciudad no encontrada");
       }
@@ -120,15 +159,115 @@ function getWeatherEmoji(main) {
 }
 
 
+if(document.querySelector(".info-lugar h1").textContent == "— —")
+{
+    addFavBtn.setAttribute("disabled", "disabled")
+}
+
 addFavBtn.addEventListener("click", () =>
 {
     var newFav = document.querySelector(".info-lugar h1").textContent
-    favsArray.push(newFav);
-    localStorage.setItem("favs", JSON.stringify(favsArray))
 
-    const favs = localStorage.getItem("favs");
-    console.log(favs);
+    if(!favsArray.includes(newFav))
+    {
+        favsArray.push(newFav);
+        localStorage.setItem("favs", JSON.stringify(favsArray))
+
+        const favs = localStorage.getItem("favs");
+        console.log(favs);
+
+        createFav(newFav);
+    }
+    else
+    {
+        alert("Ya esta en favoritos");
+    }
 });
+
+
+
+function createFav(cityName)
+{ 
+    const clone = favTemplate.content.cloneNode(true);
+    clone.querySelector(".fav-name").textContent = cityName;
+
+    favsContainer.appendChild(clone);
+    
+}
+
+
+
+function getForeCast(qCity) {
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.cod === "200") {  
+        updateForeCastHTML(data);
+      } else {
+        alert("Forecast no encontrado");
+      }
+    })
+    .catch(err => console.error("Error al obtener forecast:", err));
+}
+
+function updateForeCastHTML(data) {
+  const forecastContainer = document.querySelector(".forecast-container");
+  forecastContainer.innerHTML = ""; 
+
+  
+  const daysMap = {};
+
+  data.list.forEach(item => {
+   
+    const date = item.dt_txt.split(" ")[0]; 
+
+    if (!daysMap[date]) {
+      daysMap[date] = [];
+    }
+    daysMap[date].push(item);
+  });
+
+  
+  const dates = Object.keys(daysMap).slice(0, 5);
+
+  dates.forEach(date => {
+    const dayData = daysMap[date];
+
+
+    const tempsMax = dayData.map(d => d.main.temp_max);
+    const tempsMin = dayData.map(d => d.main.temp_min);
+
+    const maxTemp = Math.round(Math.max(...tempsMax));
+    const minTemp = Math.round(Math.min(...tempsMin));
+
+  
+    let weatherItem = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
+    const weatherMain = weatherItem.weather[0].main;
+    const weatherDesc = weatherItem.weather[0].description;
+
+   
+    const emoji = getWeatherEmoji(weatherMain);
+
+   
+    const dateObj = new Date(date);
+    const options = { weekday: 'short', day: 'numeric' };
+    const dayFormatted = dateObj.toLocaleDateString('es-ES', options);
+
+    const dayDiv = document.createElement("div");
+    dayDiv.classList.add("day");
+
+    dayDiv.innerHTML = `
+      <h4 class="day-day">${dayFormatted}</h4>
+      <span class="day-emoji">${emoji}</span>
+      <div class="day-data">
+        <span>Max: <b>${maxTemp}°</b></span>
+        <span>Min: <b>${minTemp}°</b></span>
+      </div>
+    `;
+
+    forecastContainer.appendChild(dayDiv);
+  });
+}
 
 
 
