@@ -108,6 +108,7 @@ searchBtn.addEventListener("click", (e) =>
     e.preventDefault();
     const query = input.value;
     getWeatherByCity(query);
+    getForeCast(query);
 });
 
 function getWeatherByCity(qCity) {

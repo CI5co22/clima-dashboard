@@ -5,6 +5,12 @@
     --tertiary: rgba(224, 224, 224, 0.374)
 }
 
+.card
+{
+    border-radius: 20px !important;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
+}
+
 
 main
 {
@@ -17,7 +23,7 @@ main
 }
 .primary
 {
-    background-image: linear-gradient(147deg, #5e87f9 0%, #8163e4 74%);
+    background-image: linear-gradient(147deg, #5e87f9 0%, #6751ae 45%);
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
@@ -34,13 +40,14 @@ main
     text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.503);
 }
 
+
 .search
 {
     padding: 1.5rem;
-    width: 90vw;
+    width: 90vw !important;
 }
 
-.search form
+.search 
 {
     display: flex;
     flex-direction: column;
@@ -51,12 +58,27 @@ main
 .mine-button
 {
     background-color: var(--tertiary);
+    transition: .3s ease-in-out;
+}
+
+.mine-button:hover
+{
+    background-color: rgba(179, 179, 179, 0.485);
 }
 
 .search-button
 {
     background-color: var(--primary);
     color: white;
+    transition: .3s ease-in-out;
+}
+
+.search-button:hover
+{
+    background-color: #486cce;
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 
@@ -78,6 +100,7 @@ main
     color: var(--secondary);
     position: absolute;
     right: 1rem;
+    transition: .3s ease-in-out;
 }
 
 .addFav-text
@@ -85,9 +108,9 @@ main
     display: none;
 }
 
-.fav-name
+.fav-name:hover
 {
-    text-decoration: underline;
+    cursor: pointer;
 }
 
 .addFav:hover
@@ -165,8 +188,13 @@ main
   border-radius: 10px;
   padding: 1rem;
   scroll-snap-align: start;   
+  transition: .3s ease-in-out;
 }
 
+.day:hover
+{
+    background-image: linear-gradient(147deg, #8163e4 0%, #6c6ee9 74%);
+}
 .day-emoji
 {
     font-size: 50px;
@@ -187,7 +215,13 @@ main
     display: flex;
     justify-content: space-between; 
     align-items: center; 
+    transition: .25s ease-in-out;
+}
 
+.fav:hover
+{
+    transform: translateX(6px);
+    background-color: rgba(196, 195, 195, 0.416);
 }
 
 .fav button
@@ -218,7 +252,7 @@ main
 
 #suggestions {
   position: absolute;
-  top: 47%; 
+  top: 35%; 
   left: 0;
   right: 0;
   margin: 0;
@@ -249,3 +283,214 @@ main
 {
     background-color: red !important;
 }
+
+@media (min-width: 1024px)
+{
+
+
+
+
+.search
+{
+    padding: 1.5rem;
+    width: 79vw !important;
+}
+
+.search
+{
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+
+.mine-button
+{
+    background-color: var(--tertiary);
+}
+
+.search-button
+{
+    background-color: var(--primary);
+    color: white;
+}
+
+.content
+{
+    display: flex;
+    padding-top: 1rem;
+}
+
+.content-info 
+{
+    margin-right: 2rem;
+    padding: 1.5rem;
+}
+
+.info-top
+{
+    display: flex;
+    width: 51vw;
+
+}
+
+
+.addFav
+{
+    display: flex;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    position: absolute;
+    right: 1.5rem;
+}
+
+.addFav-text
+{
+    display: block;
+}
+
+
+
+.addFav:hover
+{
+    background-color: var(--secondary);
+    color: white;
+}
+
+
+.info-data
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.info-data span
+{
+    font-size: 140px;
+}
+
+.info-data div
+{
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    text-align: center;
+}
+
+.info-data div h1
+{
+    font-size: 80px;
+    color: var(--primary);
+}
+.info-data div h5
+{
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+.info-detalles
+{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: .7rem;
+    padding-top: 2rem;
+}
+
+
+.info-detalles .c-card
+{
+    background-color: var(--tertiary);
+    padding: .6rem;
+    border-radius: 10px;
+    text-align: center;
+    width: 30%;
+}
+
+.forecast
+{
+    width: 90vw;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+
+.day {
+  align-items: center;
+  justify-items: center;
+  color: white;
+  display: flex;
+  flex-direction: column;      
+  flex: 0 0 auto;            
+   background-image: linear-gradient(147deg, #5e87f9 0%, #8163e4 74%);
+    background-repeat: no-repeat;
+    background-size: cover;
+  border-radius: 10px;
+  padding: 1rem 2.8rem;
+  scroll-snap-align: start;   
+}
+
+.day-emoji
+{
+    font-size: 50px;
+}
+
+
+.content-favs
+{
+    margin-top: 0rem;
+    padding: 1rem;
+    gap: .6rem;
+    width: 350px;
+}
+
+.content-favs h1
+{
+    font-size: 20px;
+    padding-top: 1rem;
+}
+
+.forecast
+{
+    width: 79vw;
+}
+
+
+#suggestions {
+  top: 100%; 
+}
+
+.forecast h2
+{
+    margin-left: 12px;
+}
+
+.autocomplete-container {
+  display: flex;
+  flex-direction: row;
+  max-height: 100px;
+  gap: .8rem;
+}
+
+.autocomplete-container input
+{
+    width: 55vw !important;
+}
+
+.autocomplete-container .search-button
+{
+    width: 120px !important;
+}
+
+.autocomplete-container .mine-button
+{
+    height: 45px;
+    margin: 0px !important;
+    paddign: 0px !important;
+}
+ 
+}
+ 
