@@ -10,7 +10,7 @@ const favTemplate = document.getElementById("favTemplate");
 
 var qCity = "";
 
-const favsArray = JSON.parse(localStorage.getItem("favs"));
+const favsArray = JSON.parse(localStorage.getItem("favs")) || [];
 
 function showFavs() {
     favsContainer.innerHTML = ""; 
