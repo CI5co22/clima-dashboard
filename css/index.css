@@ -175,6 +175,13 @@ main
   scroll-snap-type: x mandatory; 
 }
 
+.forecast-container div
+{
+    flex: 0 0 18.8%;       /* Ocupa todo el ancho del contenedor */
+    scroll-snap-align: start; /* Alineación al inicio para snap */
+    box-sizing: border-box;  
+}
+
 .day {
   align-items: center;
   justify-items: center;
@@ -319,6 +326,7 @@ main
 {
     display: flex;
     padding-top: 1rem;
+    width: 80vw;
 }
 
 .content-info 

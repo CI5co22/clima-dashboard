@@ -91,7 +91,7 @@ myLocationBtn.addEventListener("click", () => {
               const cityName = `${data[0].name}, ${data[0].country}`;
               input.value = cityName;   
               suggestions.innerHTML = ""; 
-              qCity = cityName;
+              getWeatherByCity(cityName);
             }
           })
           .catch(err => console.error("Error", err));
