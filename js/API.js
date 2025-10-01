@@ -1,4 +1,4 @@
-const apiKey = process.env.API_KEY;
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const input = document.getElementById("city");
 const suggestions = document.getElementById("suggestions");
 const myLocationBtn = document.getElementById("myLocationBtn");
