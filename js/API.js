@@ -64,10 +64,12 @@ input.addEventListener("input", () =>
       suggestions.innerHTML = ""; 
       data.forEach(city => {
         const li = document.createElement("li");
-        li.textContent = `${city.name}, ${city.country}`;
+        cityName = `${city.name}, ${city.country}`
+        li.textContent = cityName;
         li.addEventListener("click", () => {
           input.value = li.textContent;
           suggestions.innerHTML = "";
+          getWeatherByCity(cityName);
         });
         suggestions.appendChild(li);
 
