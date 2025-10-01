@@ -5,6 +5,20 @@
     --tertiary: rgba(224, 224, 224, 0.374)
 }
 
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .card
 {
     border-radius: 20px !important;
@@ -21,7 +35,62 @@ main
     gap: 1rem;
     padding-bottom: 2rem;
 }
+
 .primary
+{
+    background-image: linear-gradient(147deg, #acdef9 0%, #7dc3e9 45%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Clear
+{
+    background-image: linear-gradient(147deg, #d3ecfa 20%, #7dc3e9 45%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Clouds
+{
+    background-image: linear-gradient(147deg, #595b60 0%, #88dcfd 55%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Rain
+{
+    background-image: linear-gradient(147deg, #2a2a2b 20%, #081a7b 45%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Drizzle
+{
+    background-image: linear-gradient(147deg, #5e87f9 0%, #6751ae 45%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Thunderstorm
+{
+    background-image: linear-gradient(147deg, #5e87f9 0%, #6751ae 45%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.Snow
 {
     background-image: linear-gradient(147deg, #5e87f9 0%, #6751ae 45%);
     background-repeat: no-repeat;
@@ -212,7 +281,7 @@ main
 {
     margin-top: 1rem;
     padding: 1rem;
-    gap: .6rem
+    gap: .6rem;
 }
 .fav
 {

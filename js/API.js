@@ -1,9 +1,10 @@
-const apiKey = "8285faf27b73df6814dc55e459b3bab1";
+const apiKey = process.env.API_KEY;
 const input = document.getElementById("city");
 const suggestions = document.getElementById("suggestions");
 const myLocationBtn = document.getElementById("myLocationBtn");
 const searchBtn = document.getElementById("searchBtn");
 const addFavBtn = document.getElementById("addFavBtn");
+const body = document.getElementsByTagName("body");
 
 const favsContainer = document.getElementById("container-favs");
 const favTemplate = document.getElementById("favTemplate");
@@ -48,55 +49,63 @@ favsContainer.addEventListener("click", (e) => {
 showFavs();
 
 
-input.addEventListener("input", () =>
+input.addEventListener("input", async () =>
 {
     const query = input.value;
     
     if (!query) 
     {
         suggestions.innerHTML = "";
-       
     }
+    try
+    {
+    const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
+    const data = await response.json();
 
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`)
-    .then(res => res.json())
-    .then(data => {
-      suggestions.innerHTML = ""; 
-      data.forEach(city => {
-        const li = document.createElement("li");
-        cityName = `${city.name}, ${city.country}`
-        li.textContent = cityName;
-        li.addEventListener("click", () => {
-          input.value = li.textContent;
-          suggestions.innerHTML = "";
-          getWeatherByCity(cityName);
-        });
-        suggestions.appendChild(li);
+    
+    suggestions.innerHTML = ""; 
+    data.forEach(city => {
+      const li = document.createElement("li");
+      cityName = `${city.name}, ${city.country}`
+      li.textContent = cityName;
+      li.addEventListener("click", () => {
+        input.value = li.textContent;
+        suggestions.innerHTML = "";
+        getWeatherByCity(input.value);
+      });
+      suggestions.appendChild(li);
 
         qCity = li.textContent;
+        
       });
-    })
-    .catch(err => console.error("Error:", err));
+    }
+    catch(err)
+    {
+      console.error("Error en la lista:", err);
+    }
 });
 
-myLocationBtn.addEventListener("click", () => {
+myLocationBtn.addEventListener("click", async () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      async position => {
+        try
+        {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.length > 0) {
-              const cityName = `${data[0].name}, ${data[0].country}`;
-              input.value = cityName;   
-              suggestions.innerHTML = ""; 
-              getWeatherByCity(cityName);
-            }
-          })
-          .catch(err => console.error("Error", err));
+        const response = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
+        const data = await response.json();
+
+        if (data.length > 0) {
+          const cityName = `${data[0].name}, ${data[0].country}`;
+          input.value = cityName;   
+          suggestions.innerHTML = ""; 
+          await getWeatherByCity(cityName);
+        }
+        } catch(err){
+         console.error("Error", err);
+        }
       },
       error => {
         console.error("Error al obtener ubicación:", error.message);
@@ -113,20 +122,29 @@ searchBtn.addEventListener("click", (e) =>
     getForeCast(query);
 });
 
-function getWeatherByCity(qCity) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.cod === 200) 
-      {
-        updateWeatherHTML(data);
-        addFavBtn.removeAttribute("disabled");
 
-      } else {
-        alert("Ciudad no encontrada");
-      }
-    })
-    .catch(err => console.error("Error al obtener clima:", err));
+
+async function getWeatherByCity(qCity) {
+  try
+  {
+    const loader = document.getElementById("loader");
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
+    const data = await response.json()
+
+
+    if (data.cod === 200) 
+    {
+      updateWeatherHTML(data);
+      addFavBtn.removeAttribute("disabled");
+    } else {
+      alert("Ciudad no encontrada");
+    }
+  }
+  catch(err)
+  {
+    console.error("Error al obtener clima:", err);
+  }
+
 }
 
 
@@ -136,6 +154,7 @@ function updateWeatherHTML(data) {
   const now = new Date();
   document.querySelector(".info-lugar span").textContent = now.toLocaleString();
 
+  modifyBackground(data.weather[0].main);
   document.querySelector(".info-data span").textContent = getWeatherEmoji(data.weather[0].main);
   document.querySelector(".info-data h1").textContent = `${Math.round(data.main.temp)}°`;
   document.querySelector(".info-data h5").textContent = data.weather[0].description;
@@ -161,6 +180,44 @@ function getWeatherEmoji(main) {
   }
 }
 
+function modifyBackground(main) { 
+  switch(main) {
+    case "Clear":
+      document.body.className = "";
+      document.body.className = "Clear";
+      break;
+    case "Clouds":
+      document.body.className = "";
+      document.body.className = "Clouds";
+      break;
+    case "Rain": 
+      document.body.className = "";
+      document.body.className = "Rain";
+      break;
+    case "Drizzle": 
+      document.body.className = "";
+      document.body.className = "Drizzle";
+      break;
+    case "Thunderstorm": 
+      document.body.className = "";
+      document.body.className = "Thunderstorm";
+      break;
+    case "Snow": 
+      document.body.className = "";
+      document.body.className = "Snow";
+      break;
+    case "Mist":
+      document.body.className = "";
+      document.body.className = "Mist";
+      break;
+    case "Fog": 
+      document.body.className = "";
+      document.body.className = "Fog";
+      break;
+    default: return "🌡️";
+  }
+}
+
 
 if(document.querySelector(".info-lugar h1").textContent == "— —")
 {
@@ -177,8 +234,6 @@ addFavBtn.addEventListener("click", () =>
         localStorage.setItem("favs", JSON.stringify(favsArray))
 
         const favs = localStorage.getItem("favs");
-        console.log(favs);
-
         createFav(newFav);
     }
     else
@@ -200,17 +255,25 @@ function createFav(cityName)
 
 
 
-function getForeCast(qCity) {
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.cod === "200") {  
-        updateForeCastHTML(data);
-      } else {
-        alert("Forecast no encontrado");
-      }
-    })
-    .catch(err => console.error("Error al obtener forecast:", err));
+async function getForeCast(qCity) {
+  try
+  {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
+    const data = await response.json()
+
+    if (data.cod === "200") 
+    {  
+      updateForeCastHTML(data);
+    } else 
+    {
+      alert("Forecast no encontrado");
+    }
+  
+  } catch(err)
+  {
+    console.error("Error al obtener forecast:", err);
+  }
+
 }
 
 function updateForeCastHTML(data) {
@@ -250,7 +313,6 @@ function updateForeCastHTML(data) {
 
    
     const emoji = getWeatherEmoji(weatherMain);
-
    
     const dateObj = new Date(date);
     const options = { weekday: 'short', day: 'numeric' };
