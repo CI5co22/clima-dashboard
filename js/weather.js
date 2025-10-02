@@ -77,6 +77,7 @@ input.addEventListener("input", async () =>
         input.value = li.textContent;
         suggestions.innerHTML = "";
         await getWeatherByCity(input.value);
+        await getForeCast(input.value);
       });
       suggestions.appendChild(li);
 
@@ -107,6 +108,7 @@ myLocationBtn.addEventListener("click", async () => {
           input.value = cityName;   
           suggestions.innerHTML = ""; 
           await getWeatherByCity(cityName);
+          await getForeCast(cityName);
         }
         } catch(err){
          console.error("Error", err);
@@ -318,8 +320,6 @@ function updateForeCastHTML(data) {
   
     let weatherItem = dayData.find(d => d.dt_txt.includes("12:00:00")) || dayData[0];
     const weatherMain = weatherItem.weather[0].main;
-    const weatherDesc = weatherItem.weather[0].description;
-
    
     const emoji = getWeatherEmoji(weatherMain);
    
