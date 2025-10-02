@@ -120,12 +120,12 @@ myLocationBtn.addEventListener("click", async () => {
         }
          finally {
           myLocationBtn.disabled = false;
-          myLocationBtn.textContent = "Usar mi ubicacion";
+          myLocationBtn.textContent = "<b>Usar mi ubicacion</b>";
         }
       },
       error => {
         myLocationBtn.disabled = false;
-        myLocationBtn.textContent = "Usar mi ubicacion";
+        myLocationBtn.textContent = "<b>Usar mi ubicacion</b>";
         
         const errorMessages = {
           1: "Permiso de ubicación denegado",
@@ -141,7 +141,7 @@ myLocationBtn.addEventListener("click", async () => {
   {
     createToast("Tu navegador no soporta geolocalización");
     myLocationBtn.disabled = false;
-    myLocationBtn.textContent = "Usar mi ubicacion";
+    myLocationBtn.textContent = "<b>Usar mi ubicacion</b>";
   }
 });
 
