@@ -14,7 +14,7 @@ const favsArray = JSON.parse(localStorage.getItem("favs")) || [];
 async function cargarKey() {
   const response = await fetch("/api/getKey");
   apiKey = await response.text();
-   // apiKey = '8285faf27b73df6814dc55e459b3bab1';
+  // apiKey = '8285faf27b73df6814dc55e459b3bab1';
 }
 
 
@@ -139,6 +139,13 @@ searchBtn.addEventListener("click", async (e) =>
 
 
 async function getWeatherByCity(qCity) {
+
+  const spinner = searchBtn.querySelector("#spinner");
+  const buscarText  = searchBtn.querySelector("#buscar-text");
+
+  buscarText.style.display="none";
+  spinner.style.display="block";
+
   try
   {
     if (!apiKey) await cargarKey();
@@ -149,8 +156,11 @@ async function getWeatherByCity(qCity) {
     if (data.cod === 200) 
     {
       updateWeatherHTML(data);
+     
       addFavBtn.removeAttribute("disabled");
       input.value = qCity;
+      spinner.style.display="none";
+      buscarText.style.display="block";
 
     } else {
       createToast("Ciudad no encontrada")
@@ -159,6 +169,7 @@ async function getWeatherByCity(qCity) {
   catch(err)
   {
     console.error("Error al obtener clima:", err);
+
   }
 
 }
@@ -382,3 +393,6 @@ function updateForeCastHTML(data) {
         setTimeout(() => container.removeChild(toast), 500);
       });
     }
+
+
+

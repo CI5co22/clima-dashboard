@@ -22,7 +22,10 @@
              
                     <input type="text" class="form-control" placeholder="Introduce una ubicación" id="city">
                     <ul id="suggestions"></ul>
-                    <button type=submit" class="btn search-button" id="searchBtn"><b>Buscar</b></button>
+                    <button type=submit" class="btn search-button d-flex justify-content-center pt-2" id="searchBtn">
+                        <b id="buscar-text">Buscar</b>
+                        <span id="spinner" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    </button>
                 
                     <button class="btn mine-button mt-2" id="myLocationBtn"><b>Usar mi ubicacion</b></button>
           

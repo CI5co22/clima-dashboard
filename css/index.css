@@ -412,6 +412,11 @@ main
     cursor: pointer;
 }
 
+#spinner
+{
+    display: none;
+}
+
 @media (min-width: 1024px)
 {
 
