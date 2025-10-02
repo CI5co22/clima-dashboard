@@ -26,6 +26,12 @@
 }
 
 
+body
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 main
 {
     display: flex;
@@ -34,6 +40,12 @@ main
     justify-content: center;
     gap: 1rem;
     padding-bottom: 2rem;
+    width: 79vw;
+}
+
+main > section, section > *
+{
+    width: 100%;
 }
 
 .primary
@@ -103,17 +115,11 @@ main
     padding: 2rem;
     color: white;
     display: flex;
+    text-align: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.503);
-}
-
-
-.search
-{
-    padding: 1.5rem;
-    width: 90vw !important;
 }
 
 .search 
@@ -121,6 +127,8 @@ main
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    padding: 1.5rem;
+    
 }
 
 
@@ -154,7 +162,6 @@ main
 .info-top
 {
     display: flex;
-    width: 90vw;
     padding: 1rem;
 }
 
@@ -232,13 +239,12 @@ main
 
 .forecast
 {
-    width: 90vw;
     padding: 1rem;
 }
 
 .forecast-container {
   display: flex;             
-  gap: 1rem;                 
+  gap: 1rem;              
   overflow-x: auto;          
   padding: 1rem;
   scroll-snap-type: x mandatory; 
@@ -260,16 +266,10 @@ main
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   flex-direction: column;      
   flex: 0 0 auto;            
-  background-color: white !;
   border-radius: 10px;
-  padding: 1rem;
+  padding: 1rem 6rem;
   scroll-snap-align: start;   
   transition: .3s ease-in-out;
-}
-
-.day-data
-{
-    
 }
 
 .day:hover
@@ -319,7 +319,6 @@ main
 
 .autocomplete-container {
   position: relative;
-  width: 300px; 
   font-family: Arial, sans-serif;
 }
 
@@ -340,8 +339,7 @@ main
   padding: 0;
   list-style: none;
   background: #fff;
-  border: 1px solid #ccc;
-  border-top: none; 
+  border: none;
   border-radius: 0 0 8px 8px;
   max-height: 200px;
   overflow-y: auto;
@@ -420,22 +418,25 @@ main
 @media (min-width: 1024px)
 {
 
-
-
-
 .search
 {
     padding: 1.5rem;
-    width: 79vw !important;
-}
-
-.search
-{
     display: flex;
     flex-direction: row;
-    gap: .5rem;
+    max-height: 100px;
+    gap: .8rem;
 }
 
+.search #city
+{
+    width: 500%;
+}
+
+.search .mine-button
+{
+    height: 45px;
+    margin: 0px !important;
+}
 
 .mine-button
 {
@@ -453,11 +454,11 @@ main
 {
     display: flex;
     padding-top: 1rem;
-    width: 80vw;
 }
 
 .content-info 
 {
+    width:240%;
     margin-right: 2rem;
     padding: 1.5rem;
 }
@@ -465,7 +466,6 @@ main
 .info-top
 {
     display: flex;
-    width: 51vw;
 
 }
 
@@ -547,14 +547,13 @@ main
 
 .forecast
 {
-    width: 90vw;
     padding: 1rem;
     margin-top: 1rem;
 }
 
 
 .day { 
-  padding: 1rem 2rem;   
+  padding: 1rem 2rem;  
 }
 
 
@@ -570,7 +569,6 @@ main
     margin-top: 0rem;
     padding: 1rem;
     gap: .6rem;
-    width: 350px;
 }
 
 .content-favs h1
@@ -579,14 +577,11 @@ main
     padding-top: 1rem;
 }
 
-.forecast
-{
-    width: 79vw;
-}
+
 
 
 #suggestions {
-  top: 100%; 
+  top: 74%;
 }
 
 .forecast h2
@@ -594,29 +589,6 @@ main
     margin-left: 12px;
 }
 
-.autocomplete-container {
-  display: flex;
-  flex-direction: row;
-  max-height: 100px;
-  gap: .8rem;
-}
-
-.autocomplete-container input
-{
-    width: 55vw !important;
-}
-
-.autocomplete-container .search-button
-{
-    width: 120px !important;
-}
-
-.autocomplete-container .mine-button
-{
-    height: 45px;
-    margin: 0px !important;
-    paddign: 0px !important;
-}
  
 }
  
