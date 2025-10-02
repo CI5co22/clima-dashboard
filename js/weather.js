@@ -375,7 +375,7 @@ function updateForeCastHTML(data) {
       setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => container.removeChild(toast), 500);
-      }, 3500);
+      }, 4200);
 
       toast.querySelector('.close-btn').addEventListener('click', () => {
         toast.classList.remove('show');
