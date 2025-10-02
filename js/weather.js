@@ -134,7 +134,6 @@ async function getWeatherByCity(qCity) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
     const data = await response.json()
 
-    console.log("qCity:", qCity);
 
     if (data.cod === 200) 
     {
@@ -142,8 +141,6 @@ async function getWeatherByCity(qCity) {
       addFavBtn.removeAttribute("disabled");
       input.value = qCity;
 
-      console.log("input después:", input.value); 
-      console.log("qCity:", qCity);
     } else {
       alert("Ciudad no encontrada");
     }
@@ -269,7 +266,7 @@ async function getForeCast(qCity) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
     const data = await response.json()
 
-    if (data.cod === "200") 
+    if (data.cod === "200"  || data.cod === 200) 
     {  
       updateForeCastHTML(data);
     } else 
