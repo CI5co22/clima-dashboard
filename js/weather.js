@@ -12,7 +12,7 @@ const favTemplate = document.getElementById("favTemplate");
 const favsArray = JSON.parse(localStorage.getItem("favs")) || [];
 
 async function cargarKey() {
-  const response = await fetch("./API.js");
+  const response = await fetch("/api/getKey");
   apiKey = await response.text();
 }
 
