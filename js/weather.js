@@ -14,6 +14,7 @@ const favsArray = JSON.parse(localStorage.getItem("favs")) || [];
 async function cargarKey() {
   const response = await fetch("/api/getKey");
   apiKey = await response.text();
+   // apiKey = '8285faf27b73df6814dc55e459b3bab1';
 }
 
 
@@ -125,14 +126,14 @@ searchBtn.addEventListener("click", async (e) =>
 {
   if(!input.value.trim())
   {
-    alert("No se puede enviar el campo vacio")
+    createToast('No se puede enviar el campo vacio')
     return;
   }
 
   const query = input.value;
   await getWeatherByCity(query);
   await getForeCast(query);
-  
+
 });
 
 
@@ -152,7 +153,7 @@ async function getWeatherByCity(qCity) {
       input.value = qCity;
 
     } else {
-      alert("Ciudad no encontrada");
+      createToast("Ciudad no encontrada")
     }
   }
   catch(err)
@@ -253,7 +254,7 @@ addFavBtn.addEventListener("click", () =>
     }
     else
     {
-        alert("Ya esta en favoritos");
+        createToast(`${newFav} ya está en favoritos`)
     }
 });
 
@@ -283,7 +284,7 @@ async function getForeCast(qCity) {
       updateForeCastHTML(data);
     } else 
     {
-      alert("Forecast no encontrado");
+      createToast("No se pudo obtener el pronóstico")
     }
   
   } catch(err)
@@ -351,3 +352,33 @@ function updateForeCastHTML(data) {
 
 
 
+
+  const container = document.getElementById('toast-container');
+
+  function createToast(msg) {
+      const toast = document.createElement('div');
+      toast.classList.add('toast-custom');
+
+      toast.innerHTML = `
+            <i class="fa-solid fa-circle-exclamation" style="color:red"></i>
+            ${msg}
+            <button class="close-btn">&times;</button>
+        `;
+
+      container.appendChild(toast);
+
+
+      setTimeout(() => {
+          toast.classList.add('show');
+      }, 100);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => container.removeChild(toast), 500);
+      }, 3500);
+
+      toast.querySelector('.close-btn').addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => container.removeChild(toast), 500);
+      });
+    }

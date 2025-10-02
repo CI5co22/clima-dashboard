@@ -365,6 +365,53 @@ main
     background-color: red !important;
 }
 
+ /* Contenedor de los toasts */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* espacio entre toasts */
+    z-index: 9999;
+}
+
+/* Toast individual */
+.toast-custom {
+    position: relative;
+    background-color: #ffffff; /* color de fondo */
+    color: #000000;            /* color de texto */
+    padding: 15px 20px;
+    border-radius: 8px;
+    min-width: 250px;
+    max-width: 350px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    opacity: 0;             /* inicialmente invisible */
+    transform: translateX(100%); /* fuera de pantalla */
+    transition: all 0.5s ease;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Mostrar el toast */
+.toast-custom.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Botón de cierre */
+.toast-custom .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 @media (min-width: 1024px)
 {
 
