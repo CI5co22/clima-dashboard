@@ -94,6 +94,7 @@ myLocationBtn.addEventListener("click", async () => {
       async position => {
         try
         {
+        if (!apiKey) await cargarKey();
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
