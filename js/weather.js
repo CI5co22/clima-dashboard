@@ -72,10 +72,10 @@ input.addEventListener("input", async () =>
       const li = document.createElement("li");
       cityName = `${city.name}, ${city.country}`
       li.textContent = cityName;
-      li.addEventListener("click", () => {
+      li.addEventListener("click", async () => {
         input.value = li.textContent;
         suggestions.innerHTML = "";
-        getWeatherByCity(input.value);
+        await getWeatherByCity(input.value);
       });
       suggestions.appendChild(li);
 
