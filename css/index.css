@@ -440,6 +440,7 @@ main
 .mine-button
 {
     background-color: var(--tertiary);
+    font-weight: bold;
 }
 
 .search-button
