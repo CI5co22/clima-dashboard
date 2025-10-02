@@ -159,12 +159,11 @@ async function getWeatherByCity(qCity) {
      
       addFavBtn.removeAttribute("disabled");
       input.value = qCity;
-      spinner.style.display="none";
-      buscarText.style.display="block";
-
     } else {
       createToast("Ciudad no encontrada")
     }
+    spinner.style.display="none";
+    buscarText.style.display="block";
   }
   catch(err)
   {
