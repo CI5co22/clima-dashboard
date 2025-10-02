@@ -123,10 +123,16 @@ myLocationBtn.addEventListener("click", async () => {
 
 searchBtn.addEventListener("click", async (e) =>
 {
-    e.preventDefault();
-    const query = input.value;
-    await getWeatherByCity(query);
-    await getForeCast(query);
+  if(!input.value.trim())
+  {
+    alert("No se puede enviar el campo vacio")
+    return;
+  }
+
+  const query = input.value;
+  await getWeatherByCity(query);
+  await getForeCast(query);
+  
 });
 
 
