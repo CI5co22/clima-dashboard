@@ -92,6 +92,10 @@ input.addEventListener("input", async () =>
 });
 
 myLocationBtn.addEventListener("click", async () => {
+
+  myLocationBtn.disabled = true;
+  myLocationBtn.textContent = "Buscando...";
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       async position => {
@@ -114,12 +118,31 @@ myLocationBtn.addEventListener("click", async () => {
         } catch(err){
          console.error("Error", err);
         }
+         finally {
+          myLocationBtn.disabled = false;
+          myLocationBtn.textContent = "Usar mi ubicacion";
+        }
       },
       error => {
-        console.error("Error al obtener ubicación:", error.message);
+        myLocationBtn.disabled = false;
+        myLocationBtn.textContent = "Usar mi ubicacion";
+        
+        const errorMessages = {
+          1: "Permiso de ubicación denegado",
+          2: "No se pudo obtener la ubicación",
+          3: "La solicitud tardó demasiado"
+        };
+        
+        createToast(errorMessages[error.code] || "Error de ubicación desconocido");
       }
     );
-  } 
+  }
+  else
+  {
+    createToast("Tu navegador no soporta geolocalización");
+    myLocationBtn.disabled = false;
+    myLocationBtn.textContent = "Usar mi ubicacion";
+  }
 });
 
 searchBtn.addEventListener("click", async (e) =>
