@@ -63,6 +63,7 @@ input.addEventListener("input", async () =>
     }
     try
     {
+    if (!apiKey) await cargarKey();
     const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
     const data = await response.json();
 
