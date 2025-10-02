@@ -27,7 +27,7 @@ function showFavs() {
     });
 }
 
-favsContainer.addEventListener("click", (e) => {
+favsContainer.addEventListener("click", async (e) => {
     if (e.target.classList.contains("removeFav")) {
         const favElement = e.target.closest(".fav");
         const cityName = favElement.querySelector(".fav-name").textContent;
@@ -44,8 +44,8 @@ favsContainer.addEventListener("click", (e) => {
         const favElement = e.target.closest(".fav");
         const cityName = favElement.querySelector(".fav-name").textContent;
 
-        getWeatherByCity(cityName);
-        getForeCast(cityName);
+        await getWeatherByCity(cityName);
+        await getForeCast(cityName);
 
     }
 });
@@ -117,12 +117,12 @@ myLocationBtn.addEventListener("click", async () => {
   } 
 });
 
-searchBtn.addEventListener("click", (e) =>
+searchBtn.addEventListener("click", async (e) =>
 {
     e.preventDefault();
     const query = input.value;
-    getWeatherByCity(query);
-    getForeCast(query);
+    await getWeatherByCity(query);
+    await getForeCast(query);
 });
 
 
@@ -263,6 +263,8 @@ function createFav(cityName)
 async function getForeCast(qCity) {
   try
   {
+    if (!apiKey) await cargarKey();
+
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${qCity}&appid=${apiKey}&units=metric&lang=es`)
     const data = await response.json()
 
