@@ -40,7 +40,7 @@ main
     justify-content: center;
     gap: 1rem;
     padding-bottom: 2rem;
-    width: 79vw;
+    width: 90vw;
 }
 
 main > section, section > *
@@ -267,7 +267,7 @@ main > section, section > *
   flex-direction: column;      
   flex: 0 0 auto;            
   border-radius: 10px;
-  padding: 1rem 6rem;
+  padding: 1rem 2.5rem;
   scroll-snap-align: start;   
   transition: .3s ease-in-out;
 }
@@ -418,6 +418,10 @@ main > section, section > *
 @media (min-width: 1024px)
 {
 
+main
+{
+    width: 79vw;
+}
 .search
 {
     padding: 1.5rem;
