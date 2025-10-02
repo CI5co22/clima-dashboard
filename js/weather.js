@@ -139,6 +139,7 @@ async function getWeatherByCity(qCity) {
     {
       updateWeatherHTML(data);
       addFavBtn.removeAttribute("disabled");
+      input.value = qCity;
     } else {
       alert("Ciudad no encontrada");
     }
